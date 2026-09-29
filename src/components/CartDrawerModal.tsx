@@ -100,12 +100,12 @@ export const CartDrawerModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-black/80 backdrop-blur-sm flex justify-end">
-      <div className="w-full max-w-xl bg-[#090e1c] border-l border-slate-800 h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+      <div className="w-full max-w-xl bg-slate-900 border-l border-slate-800 h-full flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
         
         {/* Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-blue-950/60 border border-blue-800 text-blue-400">
+            <div className="p-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400">
               <ShoppingBag className="w-5 h-5" />
             </div>
             <div>
@@ -150,13 +150,13 @@ export const CartDrawerModal: React.FC = () => {
                   <div className="flex justify-center gap-3 pt-2">
                     <button
                       onClick={() => { handleClose(); navigateTo('products'); }}
-                      className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500"
+                      className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-md"
                     >
                       Explore Products
                     </button>
                     <button
                       onClick={() => { handleClose(); navigateTo('services'); }}
-                      className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-red-600 hover:bg-red-500"
+                      className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-md"
                     >
                       Book Services
                     </button>
@@ -167,7 +167,7 @@ export const CartDrawerModal: React.FC = () => {
                   {cart.map((item) => (
                     <div
                       key={item.id}
-                      className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex gap-3 items-start group hover:border-slate-700 transition-colors"
+                      className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex gap-3 items-start group hover:border-blue-500/40 transition-colors"
                     >
                       <img
                         src={item.image}
@@ -204,7 +204,7 @@ export const CartDrawerModal: React.FC = () => {
                               </span>
                             )}
                             {item.options.bookingDate && (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-900/40">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-600/20 text-blue-300 border border-blue-500/30">
                                 {item.options.bookingDate} at {item.options.bookingTime}
                               </span>
                             )}
@@ -212,7 +212,7 @@ export const CartDrawerModal: React.FC = () => {
                         )}
 
                         <div className="flex items-center justify-between mt-3">
-                          <div className="flex items-center border border-slate-700 rounded-md bg-slate-950">
+                          <div className="flex items-center border border-slate-700 rounded-md bg-slate-900">
                             <button
                               onClick={() => updateQuantity(item.id, -1)}
                               className="px-2 py-1 text-slate-400 hover:text-white transition-colors"
@@ -243,7 +243,7 @@ export const CartDrawerModal: React.FC = () => {
           {/* STEP 2: CHECKOUT FORM */}
           {checkoutStep === 'checkout' && (
             <form onSubmit={handleFinalizeOrder} className="space-y-4">
-              <div className="p-3 rounded-lg bg-blue-950/40 border border-blue-800/40 text-xs text-blue-300 flex items-center gap-2">
+              <div className="p-3 rounded-lg bg-blue-600/10 border border-blue-500/30 text-xs text-blue-200 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-blue-400 shrink-0" />
                 <span>
                   HIPAA-Compliant Order Processing: All prescription prosthetics are reviewed by licensed CPO orthotists.
@@ -262,7 +262,7 @@ export const CartDrawerModal: React.FC = () => {
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="e.g. Robert Sterling"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                   {formErrors.name && <p className="text-[11px] text-red-400 mt-0.5">{formErrors.name}</p>}
                 </div>
@@ -275,7 +275,7 @@ export const CartDrawerModal: React.FC = () => {
                       value={customerEmail}
                       onChange={(e) => setCustomerEmail(e.target.value)}
                       placeholder="robert@example.com"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     />
                     {formErrors.email && <p className="text-[11px] text-red-400 mt-0.5">{formErrors.email}</p>}
                   </div>
@@ -287,7 +287,7 @@ export const CartDrawerModal: React.FC = () => {
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     />
                     {formErrors.phone && <p className="text-[11px] text-red-400 mt-0.5">{formErrors.phone}</p>}
                   </div>
@@ -300,7 +300,7 @@ export const CartDrawerModal: React.FC = () => {
                     value={shippingAddress}
                     onChange={(e) => setShippingAddress(e.target.value)}
                     placeholder="Street, Suite/Apt, City, State, ZIP"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                   {formErrors.address && <p className="text-[11px] text-red-400 mt-0.5">{formErrors.address}</p>}
                 </div>
@@ -327,11 +327,11 @@ export const CartDrawerModal: React.FC = () => {
                         onClick={() => setPaymentMethod(m.id as Order['paymentMethod'])}
                         className={`p-2.5 rounded-lg border text-left flex items-center gap-2 text-xs transition-all ${
                           paymentMethod === m.id
-                            ? 'bg-red-950/40 border-red-500 text-white shadow-sm shadow-red-500/20'
-                            : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                            ? 'bg-blue-600/20 border-blue-500 text-white shadow-sm ring-1 ring-blue-500'
+                            : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
                         }`}
                       >
-                        <Icon className="w-4 h-4 text-red-400 shrink-0" />
+                        <Icon className="w-4 h-4 text-blue-400 shrink-0" />
                         <span className="font-medium truncate">{m.label}</span>
                       </button>
                     );
@@ -339,7 +339,7 @@ export const CartDrawerModal: React.FC = () => {
                 </div>
 
                 {paymentMethod === 'Health Insurance Co-Pay' && (
-                  <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-800 space-y-2 mt-2">
+                  <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-2 mt-2">
                     <label className="text-[11px] text-slate-400 block">
                       Insurance Policy ID / Member Number
                     </label>
@@ -347,7 +347,7 @@ export const CartDrawerModal: React.FC = () => {
                       type="text"
                       value={insurancePolicyNumber}
                       onChange={(e) => setInsurancePolicyNumber(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-xs text-white"
+                      className="w-full bg-slate-900 border border-slate-800 rounded px-2.5 py-1.5 text-xs text-white"
                     />
                     <p className="text-[10px] text-emerald-400">
                       Eligible for up to 80-100% prosthesis reimbursement under major private & government plans.
@@ -366,7 +366,7 @@ export const CartDrawerModal: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-xs shadow-lg shadow-red-900/40"
+                  className="flex-1 py-2.5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 text-xs shadow-lg shadow-blue-600/30 transition-all"
                 >
                   Confirm & Submit Order
                 </button>
@@ -384,7 +384,7 @@ export const CartDrawerModal: React.FC = () => {
               <div>
                 <h4 className="text-2xl font-bold text-white font-heading">Clinical Order Confirmed!</h4>
                 <p className="text-xs text-slate-300 mt-1">
-                  Order Number: <strong className="text-red-400 font-mono">{lastOrder.orderNumber}</strong>
+                  Order Number: <strong className="text-blue-400 font-mono">{lastOrder.orderNumber}</strong>
                 </p>
                 <p className="text-xs text-slate-400 mt-2 max-w-sm mx-auto">
                   A clinical coordinator has been assigned to your order. We will reach out to confirm your socket casting appointment or delivery timeline.
@@ -392,7 +392,7 @@ export const CartDrawerModal: React.FC = () => {
               </div>
 
               {/* Receipt Summary Card */}
-              <div className="text-left bg-slate-900/90 border border-slate-800 rounded-xl p-4 space-y-2 text-xs">
+              <div className="text-left bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs">
                 <div className="flex justify-between border-b border-slate-800 pb-2">
                   <span className="text-slate-400">Patient:</span>
                   <span className="font-semibold text-white">{lastOrder.customerName}</span>
@@ -416,7 +416,7 @@ export const CartDrawerModal: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <button
                   onClick={handlePrintReceipt}
-                  className="flex-1 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-xs font-semibold text-white flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-xs font-semibold text-white flex items-center justify-center gap-2 transition-colors"
                 >
                   <Printer className="w-4 h-4 text-blue-400" />
                   <span>Print Receipt & Intake</span>
@@ -426,7 +426,7 @@ export const CartDrawerModal: React.FC = () => {
                     handleClose();
                     navigateTo('dashboard');
                   }}
-                  className="flex-1 py-2.5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 text-xs flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all"
                 >
                   <span>View in Dashboard</span>
                   <ArrowRight className="w-4 h-4" />
@@ -439,7 +439,7 @@ export const CartDrawerModal: React.FC = () => {
 
         {/* Footer Bar (Visible on Cart Step) */}
         {checkoutStep === 'cart' && cart.length > 0 && (
-          <div className="p-5 border-t border-slate-800 bg-slate-900/90 space-y-3">
+          <div className="p-5 border-t border-slate-800 bg-slate-950 space-y-3">
             <div className="space-y-1.5 text-xs">
               <div className="flex justify-between text-slate-400">
                 <span>Subtotal</span>
@@ -451,7 +451,7 @@ export const CartDrawerModal: React.FC = () => {
               </div>
               <div className="flex justify-between text-sm font-bold text-white border-t border-slate-800 pt-2">
                 <span>Order Total</span>
-                <span className="text-lg text-red-400">${cartTotal.toLocaleString()}</span>
+                <span className="text-lg text-blue-400">${cartTotal.toLocaleString()}</span>
               </div>
             </div>
 
@@ -465,7 +465,7 @@ export const CartDrawerModal: React.FC = () => {
               </button>
               <button
                 onClick={handleProceedToCheckout}
-                className="flex-1 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-sm shadow-lg shadow-red-900/40 flex items-center justify-center gap-2 transition-all"
+                className="flex-1 py-3 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 text-sm shadow-lg shadow-blue-600/40 flex items-center justify-center gap-2 transition-all"
               >
                 <span>Proceed to Clinical Checkout</span>
                 <ArrowRight className="w-4 h-4" />

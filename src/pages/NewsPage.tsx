@@ -3,16 +3,11 @@ import {
   Search, 
   Calendar, 
   Clock, 
-  User, 
-  ArrowRight, 
-  X, 
-  Share2, 
   BookOpen, 
-  Sparkles,
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { NewsArticle } from '../types';
 
 export const NewsPage: React.FC = () => {
   const { news, selectedArticle, setSelectedArticle, navigateTo } = useApp();
@@ -39,17 +34,17 @@ export const NewsPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       
       {/* News Banner */}
-      <div className="rounded-3xl bg-gradient-to-r from-[#331123] via-[#0d2247] to-[#123062] border-2 border-red-500/40 p-8 sm:p-10 relative overflow-hidden shadow-2xl">
+      <div className="rounded-3xl bg-slate-900 border-2 border-red-500/40 p-8 sm:p-10 relative overflow-hidden shadow-2xl">
         <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/15 rounded-full blur-3xl pointer-events-none"></div>
         <div className="relative max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-red-900/60 border border-red-400/50 text-xs text-red-200 font-bold">
-            <BookOpen className="w-3.5 h-3.5 text-red-300" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-red-600/20 border border-red-500/40 text-xs text-red-300 font-bold">
+            <BookOpen className="w-3.5 h-3.5 text-red-400" />
             <span>Clinical Research, Tech Insights & Patient Spotlights</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-heading">
             News, Breakthroughs & Community
           </h1>
-          <p className="text-sm text-blue-100 leading-relaxed">
+          <p className="text-sm text-slate-300 leading-relaxed">
             Stay updated with clinical discoveries in neural prosthetic interfaces, gait retraining biomechanics, amputee athletic milestones, and our global humanitarian fittings.
           </p>
         </div>
@@ -64,7 +59,7 @@ export const NewsPage: React.FC = () => {
               onClick={() => setCategoryFilter(cat)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 categoryFilter === cat
-                  ? 'bg-red-600 text-white shadow-md'
+                  ? 'bg-blue-600 text-white shadow-md'
                   : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800'
               }`}
             >
@@ -74,13 +69,13 @@ export const NewsPage: React.FC = () => {
         </div>
 
         <div className="relative w-full md:w-72">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search articles..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500"
+            className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
           />
         </div>
       </div>
@@ -89,7 +84,7 @@ export const NewsPage: React.FC = () => {
       {filteredNews.length > 0 && categoryFilter === 'all' && !searchQuery && (
         <div
           onClick={() => setSelectedArticle(filteredNews[0])}
-          className="rounded-3xl bg-[#090e1c] border border-slate-800 overflow-hidden cursor-pointer group hover:border-slate-700 transition-all shadow-xl grid grid-cols-1 lg:grid-cols-12"
+          className="rounded-3xl bg-slate-900 border border-slate-800 overflow-hidden cursor-pointer group hover:border-blue-500/50 transition-all shadow-xl grid grid-cols-1 lg:grid-cols-12"
         >
           <div className="lg:col-span-7 relative min-h-[300px] overflow-hidden">
             <img
@@ -97,7 +92,7 @@ export const NewsPage: React.FC = () => {
               alt={filteredNews[0].title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <span className="absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded bg-red-600 text-white">
+            <span className="absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded bg-blue-600 text-white shadow-md">
               Featured Research
             </span>
           </div>
@@ -108,7 +103,7 @@ export const NewsPage: React.FC = () => {
                 <span>•</span>
                 <span>{filteredNews[0].readTime}</span>
               </div>
-              <h2 className="text-2xl font-bold text-white font-heading group-hover:text-red-400 transition-colors">
+              <h2 className="text-2xl font-bold text-white font-heading group-hover:text-blue-400 transition-colors">
                 {filteredNews[0].title}
               </h2>
               <p className="text-sm text-slate-300 leading-relaxed">
@@ -116,12 +111,12 @@ export const NewsPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
               <div>
                 <div className="text-xs font-semibold text-white">{filteredNews[0].author}</div>
                 <div className="text-[10px] text-slate-400">{filteredNews[0].authorRole}</div>
               </div>
-              <span className="text-xs font-bold text-red-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <span className="text-xs font-bold text-blue-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 <span>Read Full Story</span>
                 <ChevronRight className="w-4 h-4" />
               </span>
@@ -136,7 +131,7 @@ export const NewsPage: React.FC = () => {
           <div
             key={article.id}
             onClick={() => setSelectedArticle(article)}
-            className="rounded-2xl bg-[#090e1c] border border-slate-800 overflow-hidden cursor-pointer group hover:border-slate-700 transition-all flex flex-col justify-between shadow-lg"
+            className="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden cursor-pointer group hover:border-blue-500/50 transition-all flex flex-col justify-between shadow-lg"
           >
             <div>
               <div className="aspect-video relative overflow-hidden bg-slate-950">
@@ -151,15 +146,15 @@ export const NewsPage: React.FC = () => {
               </div>
 
               <div className="p-5 space-y-2.5">
-                <div className="flex items-center gap-2 text-[11px] text-slate-500">
-                  <Calendar className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                  <Calendar className="w-3.5 h-3.5 text-blue-400" />
                   <span>{article.date}</span>
                   <span>•</span>
-                  <Clock className="w-3.5 h-3.5" />
+                  <Clock className="w-3.5 h-3.5 text-blue-400" />
                   <span>{article.readTime}</span>
                 </div>
 
-                <h3 className="font-bold text-white text-base font-heading group-hover:text-red-300 transition-colors line-clamp-2">
+                <h3 className="font-bold text-white text-base font-heading group-hover:text-blue-300 transition-colors line-clamp-2">
                   {article.title}
                 </h3>
 
@@ -184,16 +179,16 @@ export const NewsPage: React.FC = () => {
       {/* ARTICLE FULL MODAL */}
       {selectedArticle && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="relative bg-[#0c101d] border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95">
+          <div className="relative bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl animate-in zoom-in-95">
             <button
               onClick={() => setSelectedArticle(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700"
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="space-y-3">
-              <span className="text-xs font-bold px-3 py-1 rounded bg-red-950 text-red-300 border border-red-800 uppercase">
+              <span className="text-xs font-bold px-3 py-1 rounded bg-blue-600/20 text-blue-300 border border-blue-500/30 uppercase">
                 {selectedArticle.category}
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-white font-heading">
@@ -228,14 +223,14 @@ export const NewsPage: React.FC = () => {
                   setSelectedArticle(null);
                   navigateTo('registration');
                 }}
-                className="px-4 py-2.5 rounded-xl font-bold text-xs text-white bg-gradient-to-r from-red-600 to-rose-600"
+                className="px-4 py-2.5 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-500 shadow-md transition-colors"
               >
                 Register for Clinical Consultation
               </button>
 
               <button
                 onClick={() => setSelectedArticle(null)}
-                className="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-white"
+                className="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-white hover:bg-slate-700 transition-colors"
               >
                 Close Article
               </button>

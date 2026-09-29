@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { 
   X, 
-  Calendar, 
   Clock, 
   UserCheck, 
   CheckCircle2, 
   Star, 
-  MapPin, 
-  Video, 
-  Home, 
   ShoppingBag,
   Award,
   Sparkles
@@ -62,7 +58,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ service,
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="relative bg-[#0c101d] border border-slate-700/80 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+      <div className="relative bg-slate-900 border border-slate-700/80 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -73,15 +69,15 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ service,
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left Column: Image, Therapist, Clinical Overview */}
-          <div className="p-6 md:p-8 bg-gradient-to-b from-[#0f172a] to-[#070b14] border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between">
+          <div className="p-6 md:p-8 bg-slate-950/70 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <span className={`text-xs px-2.5 py-1 rounded-md font-bold uppercase tracking-wider ${
                   service.category === 'physiotherapy'
-                    ? 'bg-blue-900/50 text-blue-300 border border-blue-700/50'
+                    ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
                     : service.category === 'speech'
-                    ? 'bg-indigo-900/50 text-indigo-300 border border-indigo-700/50'
-                    : 'bg-red-900/50 text-red-300 border border-red-700/50'
+                    ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                    : 'bg-red-600/20 text-red-400 border border-red-500/30'
                 }`}>
                   {service.category.toUpperCase()} CLINIC
                 </span>
@@ -98,102 +94,120 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ service,
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-slate-200">
-                  <span className="flex items-center gap-1 text-amber-400">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <strong>{service.rating}</strong> ({service.reviewCount} amputee recovery reviews)
+                  <div className="flex items-center gap-1 font-semibold">
+                    <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                    <span>{service.rating} Clinical Rating</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded bg-blue-600 text-white font-bold text-[10px]">
+                    Insurance Approved
                   </span>
                 </div>
               </div>
 
-              {/* Lead Therapist Profile */}
-              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">
-                  Clinical Care Lead Specialist
+              {/* Assigned Specialist */}
+              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-blue-400 font-bold shrink-0">
+                  <UserCheck className="w-6 h-6" />
                 </div>
-                <div className="flex items-center gap-3">
-                  <img
-                    src={service.leadTherapist.avatar}
-                    alt={service.leadTherapist.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-blue-500/50 shrink-0"
-                  />
-                  <div>
-                    <h5 className="text-sm font-bold text-white">{service.leadTherapist.name}</h5>
-                    <p className="text-xs text-blue-400 font-medium">{service.leadTherapist.role}</p>
-                    <p className="text-[11px] text-slate-400 mt-0.5">{service.leadTherapist.experienceYears}+ years specialized clinical experience</p>
+                <div>
+                  <div className="text-xs font-bold text-white flex items-center gap-1">
+                    <span>{service.leadTherapist.name}</span>
+                    <Award className="w-3.5 h-3.5 text-emerald-400" />
                   </div>
+                  <div className="text-[11px] text-blue-400 font-medium">{service.leadTherapist.credentials}</div>
+                  <div className="text-[10px] text-slate-400">{service.leadTherapist.role}</div>
                 </div>
               </div>
 
-              {/* Key Clinical Benefits */}
-              <div className="space-y-1.5 pt-1">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Clinical Milestones
+              {/* What will happen */}
+              <div className="space-y-1.5 pt-2">
+                <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Clinical Benefits & Key Outcomes</span>
                 </div>
-                {service.keyBenefits.slice(0, 3).map((b, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </div>
-                ))}
+                <ul className="space-y-1">
+                  {service.keyBenefits.map((item, idx) => (
+                    <li key={idx} className="text-xs text-slate-300 flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            <div className="pt-4 text-xs text-slate-500">
-              Approved by major health insurance carriers and worker compensation funds.
+            <div className="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+              <span>Delivery Modes: {service.deliveryMode.join(' • ')}</span>
+              <button
+                type="button"
+                onClick={handleRegisterAsPatient}
+                className="text-xs font-bold text-red-400 hover:text-red-300 underline"
+              >
+                Need Intake Form?
+              </button>
             </div>
           </div>
 
           {/* Right Column: Scheduling & Booking */}
-          <div className="p-6 md:p-8 flex flex-col justify-between">
-            <div className="space-y-4">
+          <div className="p-6 md:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-5">
               <div>
-                <h3 className="text-xl font-bold text-white font-heading">{service.title}</h3>
-                <p className="text-xs text-slate-300 mt-1 leading-relaxed">{service.subtitle}</p>
+                <h2 className="text-2xl font-bold text-white font-heading">
+                  {service.title}
+                </h2>
+                <div className="text-xs text-blue-400 font-medium mt-0.5">
+                  {service.subtitle}
+                </div>
+                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                  {service.fullDesc || service.shortDesc}
+                </p>
               </div>
 
-              {/* Package selection */}
+              {/* Package Options */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
-                  Select Treatment Plan
+                <label className="text-xs font-bold text-slate-300 uppercase tracking-wide">
+                  Select Care Plan Package
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
                     onClick={() => setPackageType('single')}
-                    className={`p-3 rounded-xl border text-left transition-all ${
+                    className={`p-3.5 rounded-xl border text-left transition-all ${
                       packageType === 'single'
-                        ? 'bg-blue-950/40 border-blue-500 text-white'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-blue-600/15 border-blue-500 shadow-md ring-1 ring-blue-500'
+                        : 'bg-slate-800/80 border-slate-700 hover:border-slate-600'
                     }`}
                   >
-                    <div className="text-xs font-medium text-slate-300">Single Session</div>
-                    <div className="text-lg font-bold text-white mt-1">${service.pricePerSession}</div>
-                    <div className="text-[10px] text-slate-400">Evaluation & Plan</div>
+                    <div className="text-xs font-bold text-white">Single Assessment</div>
+                    <div className="text-xl font-extrabold text-blue-400 mt-1">${service.pricePerSession}</div>
+                    <div className="text-[10px] text-slate-400 mt-1">1x {service.durationMinutes}-min clinical evaluation</div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPackageType('package')}
-                    className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden ${
+                    className={`p-3.5 rounded-xl border text-left transition-all relative ${
                       packageType === 'package'
-                        ? 'bg-red-950/40 border-red-500 text-white'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                        ? 'bg-blue-600/15 border-blue-500 shadow-md ring-1 ring-blue-500'
+                        : 'bg-slate-800/80 border-slate-700 hover:border-slate-600'
                     }`}
                   >
-                    <span className="absolute top-0 right-0 bg-red-600 text-[9px] font-bold text-white px-2 py-0.5 rounded-bl">
-                      SAVE $50
+                    <span className="absolute -top-2 right-2 text-[9px] font-black uppercase tracking-wider bg-red-600 text-white px-2 py-0.5 rounded-full">
+                      Recommended
                     </span>
-                    <div className="text-xs font-medium text-red-300">5-Session Bundle</div>
-                    <div className="text-lg font-bold text-white mt-1">${service.packagePrice}</div>
-                    <div className="text-[10px] text-slate-400">Complete Restoration</div>
+                    <div className="text-xs font-bold text-white">{service.packageSessions}-Session Program</div>
+                    <div className="text-xl font-extrabold text-emerald-400 mt-1">${service.packagePrice}</div>
+                    <div className="text-[10px] text-slate-400 mt-1">
+                      Save ${(service.pricePerSession * service.packageSessions) - service.packagePrice} with bundle
+                    </div>
                   </button>
                 </div>
               </div>
 
-              {/* Delivery mode */}
-              <div>
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
-                  Consultation Setting
+              {/* Delivery Mode */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-300 uppercase tracking-wide">
+                  Appointment Setting
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {service.deliveryMode.map((mode) => (
@@ -201,85 +215,68 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ service,
                       key={mode}
                       type="button"
                       onClick={() => setDeliveryMode(mode)}
-                      className={`p-2 rounded-lg text-xs font-medium border flex items-center justify-center gap-1.5 transition-all ${
+                      className={`py-2 px-2 rounded-lg text-xs font-bold border transition-all text-center ${
                         deliveryMode === mode
-                          ? 'bg-blue-600/30 border-blue-500 text-white'
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                          ? 'bg-blue-600 text-white border-blue-500 shadow-md'
+                          : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-600'
                       }`}
                     >
-                      {mode === 'In-Clinic' && <MapPin className="w-3.5 h-3.5 text-blue-400" />}
-                      {mode === 'Virtual Telehealth' && <Video className="w-3.5 h-3.5 text-cyan-400" />}
-                      {mode === 'Home Visit' && <Home className="w-3.5 h-3.5 text-amber-400" />}
-                      <span>{mode}</span>
+                      {mode}
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Date & Time Slot Picker */}
-              <div className="grid grid-cols-2 gap-3 pt-1">
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
-                    Preferred Date
+              {/* Date & Time Selection */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase">
+                    Select Date
                   </label>
                   <input
                     type="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
-                    Time Slot
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-slate-400 uppercase">
+                    Preferred Time
                   </label>
                   <select
                     value={selectedTime}
                     onChange={(e) => setSelectedTime(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   >
-                    <option value="09:00 AM">09:00 AM - 10:00 AM</option>
-                    <option value="10:00 AM">10:00 AM - 11:00 AM</option>
-                    <option value="01:30 PM">01:30 PM - 02:30 PM</option>
-                    <option value="03:00 PM">03:00 PM - 04:00 PM</option>
-                    <option value="04:30 PM">04:30 PM - 05:30 PM</option>
+                    <option value="09:00 AM">09:00 AM (Morning)</option>
+                    <option value="10:00 AM">10:00 AM (Morning)</option>
+                    <option value="11:30 AM">11:30 AM (Morning)</option>
+                    <option value="02:00 PM">02:00 PM (Afternoon)</option>
+                    <option value="03:30 PM">03:30 PM (Afternoon)</option>
+                    <option value="05:00 PM">05:00 PM (Late Shift)</option>
                   </select>
-                </div>
-              </div>
-
-              {/* Methodology details */}
-              <div className="pt-2">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
-                  Clinical Modalities Utilized
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {service.methodologies.map((m, idx) => (
-                    <span key={idx} className="text-[10px] px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
-                      {m}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Action buttons */}
-            <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
+            {/* Actions */}
+            <div className="space-y-2.5 pt-4 border-t border-slate-800">
               <button
                 type="button"
                 onClick={handleBookService}
-                className="flex-1 py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 shadow-lg shadow-red-900/40 flex items-center justify-center gap-2 text-sm transition-all"
+                className="w-full py-3.5 px-4 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition-all"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>Confirm & Book Therapy (${activePrice})</span>
+                <span>Confirm & Add Care Booking • ${activePrice.toLocaleString()}</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleRegisterAsPatient}
-                className="py-3 px-4 rounded-xl font-semibold text-blue-200 bg-blue-950/60 hover:bg-blue-900/60 border border-blue-700/60 flex items-center justify-center gap-2 text-sm transition-all"
+                className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-red-300 bg-red-950/40 hover:bg-red-900/60 border border-red-800/80 flex items-center justify-center gap-2 transition-all"
               >
-                <UserCheck className="w-4 h-4 text-blue-400" />
-                <span>Register Full Intake</span>
+                <span>Or Register As New Patient For Clinical Direct Billing</span>
               </button>
             </div>
           </div>
