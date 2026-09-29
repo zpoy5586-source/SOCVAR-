@@ -1,0 +1,6 @@
+{
+  "name": "Bionix & Rehab - Bionic Prosthetics & Therapy Solutions",
+  "description": "Provider of bionic legs and hands prosthetics, physiotherapy, speech therapy, counseling, and amputee patient care registrations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
